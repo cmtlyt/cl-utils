@@ -1,0 +1,54 @@
+{
+  "name": "@cmtlyt/cl-utils",
+  "version": "0.4.0",
+  "description": "常用的工具函数",
+  "main": "./dist/esm/index.js",
+  "exports": {
+    ".": {
+      "browser": {
+        "require": "./dist/esm/index.js",
+        "default": "./dist/esm/index.js"
+      },
+      "default": {
+        "require": "./dist/umd/index.js",
+        "default": "./dist/umd/index.js"
+      }
+    }
+  },
+  "scripts": {
+    "build": "tsc -m es6 --outDir ./dist/esm && tsc -m umd --outDir ./dist/umd",
+    "_pub": "npm run build && npm publish",
+    "pub:patch": "npm version patch && npm run _pub",
+    "pub:minor": "npm version minor && npm run _pub",
+    "pub:major": "npm version major && npm run _pub"
+  },
+  "keywords": [
+    "utils",
+    "cmtlyt",
+    "cl",
+    "tools"
+  ],
+  "author": {
+    "name": "cmtlyt",
+    "email": "cmtlyt@163.com"
+  },
+  "files": [
+    "dist"
+  ],
+  "license": "ISC",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.4"
+  },
+  "bugs": {
+    "url": "https://github.com/cmtlyt/cl-utils/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cmtlyt/cl-utils.git"
+  }
+}
