@@ -125,3 +125,29 @@ export function checkInString(formatString: string, sep: string = ','): (value: 
     return !!~checkMap.indexOf(value)
   }
 }
+
+/**
+ * 获取字符串的hash值
+ * @param {string} input
+ * @returns {string}
+ */
+export function getHash(input: string = ''): string {
+  const I64BIT_TABLE = 'abcdefghijklmnopqrstuvwxyz0123456789'
+  let hash = 5381
+  for (let i = input.length - 1; i > -1; i--) hash += (hash << 5) + input.charCodeAt(i)
+  let value = hash & 0x7fffffff
+  let retValue = ''
+  do {
+    retValue += I64BIT_TABLE.charAt(value & 0x23)
+  } while ((value >>= 6))
+  return retValue
+}
+
+/**
+ * 生成uuid格式的随机字符串
+ * @returns {string}
+ */
+export function createUUID(): string {
+  const mask = 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
+  return mask.replace(/x/g, () => ((Math.random() * 64) >> 1).toString(32))
+}
