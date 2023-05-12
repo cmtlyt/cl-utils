@@ -32,7 +32,11 @@ useTypeCheckHandle(callback, typeConfig)
 checkTypeHandle(data, typeConfig)
 ```
 
-### 0.3.11
+### 0.4.2
+
+- `baseFunc` 模块新增 `getHash` 和 `createUUID` 方法
+
+### 0.4.0
 
 - 新增字符串正则验证
 - 修改 `useCheckType` 函数为`useTypeCheckHandle`
