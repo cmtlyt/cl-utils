@@ -239,32 +239,27 @@ export function useTypeCheckHandle(callback: Function, typeConfig: ITypeConfigOp
   return (...args: TArray<any>) => checkFunc(args)
 }
 
-function __checkTypeHandle(data: any, typeConfig: TArray<ITypeConfig> | ITypeConfig): Promise<ITypeCheckResult> {
-  return new Promise((resolve, reject) => {
-    const dataType = getType(data)
-    const configType = getType(typeConfig)
-    let res: ITypeCheckResult = { result: true }
-    const checkHandle = isSimpleType(dataType) ? checkTypeFromConfig : complexCheck
-    if (configType === 'array') {
-      ;(<TArray<ITypeConfig>>typeConfig).every(config => {
-        res = checkHandle(data, config)
-        return res.result
-      })
-    } else {
-      res = checkHandle(data, <ITypeConfig>typeConfig)
-    }
-    if (!res.result) {
-      return reject(res)
-    }
-    return resolve(data)
-  })
+function __checkTypeHandle(data: any, typeConfig: TArray<ITypeConfig> | ITypeConfig): boolean {
+  const dataType = getType(data)
+  const configType = getType(typeConfig)
+  let res: ITypeCheckResult = { result: true }
+  const checkHandle = isSimpleType(dataType) ? checkTypeFromConfig : complexCheck
+  if (configType === 'array') {
+    ;(<TArray<ITypeConfig>>typeConfig).every(config => {
+      res = checkHandle(data, config)
+      return res.result
+    })
+  } else {
+    res = checkHandle(data, <ITypeConfig>typeConfig)
+  }
+  return res.result
 }
 
 /**
  * 直接检查数据类型
  * @param {any} data
  * @param {TArray<ITypeConfig> | ITypeConfig} typeConfig
- * @returns {Promise}
+ * @returns {boolean}
  */
 export function checkTypeHandle(data: any, typeConfig: TArray<ITypeConfig> | ITypeConfig) {
   return __checkTypeHandle(data, typeConfig)

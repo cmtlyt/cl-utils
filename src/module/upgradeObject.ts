@@ -53,12 +53,12 @@ export function upgradeObj(obj: IObject<unknown>) {
       }
       return newObj
     },
-    flat(depth: number): IObject<unknown> {
+    flat(depth: number, sep: string = '.'): IObject<unknown> {
       const newObj: IObject<unknown> = {}
       const flatFunc = (obj: IObject<unknown>, depth: number, prefix = '') => {
         for (let key in obj) {
           if (typeof obj[key] === 'object' && !Array.isArray(obj[key]) && depth > 0) {
-            flatFunc(<IObject<unknown>>obj[key], depth - 1, prefix + key + '.')
+            flatFunc(<IObject<unknown>>obj[key], depth - 1, prefix + key + sep)
           } else {
             newObj[prefix + key] = obj[key]
           }

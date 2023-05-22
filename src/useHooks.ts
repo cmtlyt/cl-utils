@@ -1,5 +1,6 @@
 import * as baseFunc from './module/baseFunc'
 import _fetchRequest, { createInstance, IInitRequestConfig } from './module/fetchRequest'
+import * as lodash from './module/lodash'
 
 function forEachObj(obj: IObject<unknown>, callback: (value: unknown, key: string, object: IObject<unknown>) => void) {
   Object.keys(obj).forEach((key: string) => {
@@ -72,4 +73,12 @@ export function useFetch(
       },
     }
   }
+}
+
+/**
+ * 返回lodash对象
+ * @returns {lodash}
+ */
+export function useLodash() {
+  return lodash
 }

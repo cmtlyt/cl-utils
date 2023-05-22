@@ -152,6 +152,11 @@ export function createUUID(): string {
   return mask.replace(/x/g, () => ((Math.random() * 64) >> 1).toString(32))
 }
 
+/**
+ * 获取传入的dom元素的Selector选择器
+ * @param {Element} $dom
+ * @returns {string}
+ */
 export function getDOMSelector($dom: TSome<Node>): string {
   function __getDomSelector($dom: Node): string {
     const domTag: string = $dom.nodeName.toLowerCase()
@@ -179,6 +184,11 @@ export function getDOMSelector($dom: TSome<Node>): string {
   return __getSelectors($dom).slice(0, -1)
 }
 
+/**
+ * 获取传入的dom元素的XPath选择器
+ * @param {Element} $dom
+ * @returns {string}
+ */
 export function getDOMXPath($dom: TSome<Node>): string {
   if ($dom instanceof Element) {
     if ($dom.id !== '') {
@@ -201,4 +211,26 @@ export function getDOMXPath($dom: TSome<Node>): string {
     return ''
   }
   return ''
+}
+
+/**
+ * 扁平化对象
+ * @param {object} obj 需要扁平化的对象
+ * @param {number} depth 深度
+ * @param {string} sep 分隔符
+ * @returns {object}
+ */
+export function flatObj(obj: IObject<unknown>, depth: number, sep: string = '.'): IObject<unknown> {
+  const newObj: IObject<unknown> = {}
+  const flatFunc = (obj: IObject<unknown>, depth: number, prefix = '') => {
+    for (let key in obj) {
+      if (typeof obj[key] === 'object' && !Array.isArray(obj[key]) && depth > 0) {
+        flatFunc(<IObject<unknown>>obj[key], depth - 1, prefix + key + sep)
+      } else {
+        newObj[prefix + key] = obj[key]
+      }
+    }
+  }
+  flatFunc(obj, depth)
+  return newObj
 }

@@ -27,10 +27,17 @@ useTypeCheckHandle(callback, typeConfig)
  * 直接检查数据类型
  * @param {T} data
  * @param {ITypeConfig[] | ITypeConfig} typeConfig
- * @returns {Promise<T>}
+ * @returns {boolean}
  */
 checkTypeHandle(data, typeConfig)
 ```
+
+### 0.5.0
+
+- 新增 `lodash` 模块 复刻了 `lodash.js` 包的部分方法
+- `baseFunc` 模块新增 `flatObj`, `getDOMSelector`, `getDOMXPath` 方法
+- `upgradeObject` 模块 `flat` 方法支持自定义分隔符
+- `checkType` 模块 `checkTypeHandle` 方法直接返回布尔值
 
 ### 0.4.2
 
